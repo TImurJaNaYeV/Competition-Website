@@ -91,8 +91,8 @@ function HomePage() {
       {/* ── COUNTDOWN ─────────────────────────────────────────────── */}
       <section className="bg-navy-900 border-y border-white/10 py-14">
         <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-accent mb-8">
-            {t.countdown.label}
+          <p className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight mb-8">
+            {t.countdown.subheading}
           </p>
           <CountdownTimer />
           <p className="mt-5 text-[11px] uppercase tracking-widest text-slate-600">

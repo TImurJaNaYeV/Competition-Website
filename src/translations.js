@@ -23,7 +23,8 @@ export const translations = {
     },
     countdown: {
       label: 'Registration Opens In',
-      date:  'July 1, 2025',
+      subheading: 'First tour in',
+      date:  'July 25, 2026',
     },
     about: {
       eyebrow: 'About',
@@ -191,7 +192,8 @@ export const translations = {
     },
     countdown: {
       label: 'Регистрация открывается через',
-      date:  '1 июля 2025',
+      subheading: 'Первый тур через',
+      date:  '25 июля 2026',
     },
     about: {
       eyebrow: 'О чемпионате',
