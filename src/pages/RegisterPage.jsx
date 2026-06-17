@@ -43,11 +43,13 @@ function RegisterPage() {
   const r = t.register;
 
   // 'loading' | 'step1' | 'email-sent' | 'step2'
-  const [flowState,      setFlowState]      = useState('loading');
-  const [loading,        setLoading]        = useState(false);
-  const [error,          setError]          = useState('');
-  const [authUser,       setAuthUser]       = useState(null);
-  const [submittedEmail, setSubmittedEmail] = useState('');
+  const [flowState,       setFlowState]       = useState('loading');
+  const [loading,         setLoading]         = useState(false);
+  const [error,           setError]           = useState('');
+  const [emailDuplicate,  setEmailDuplicate]  = useState(false);
+  const [shaking,         setShaking]         = useState(false);
+  const [authUser,        setAuthUser]        = useState(null);
+  const [submittedEmail,  setSubmittedEmail]  = useState('');
 
   // Step 1 fields
   const [email,           setEmail]           = useState('');
@@ -89,6 +91,12 @@ function RegisterPage() {
     init();
   }, [navigate]);
 
+  function triggerShake() {
+    setEmailDuplicate(true);
+    setShaking(true);
+    setTimeout(() => setShaking(false), 600);
+  }
+
   async function handleCreateAccount(e) {
     e.preventDefault();
     setError('');
@@ -99,7 +107,16 @@ function RegisterPage() {
     setLoading(true);
     try {
       const { data, error: authError } = await supabase.auth.signUp({ email, password });
+
       if (authError) throw authError;
+
+      // When email confirmation is ON, Supabase silently accepts signUp for an
+      // existing address and returns a user with an empty identities array instead
+      // of an error. This is the only reliable duplicate signal in this setup.
+      if (data?.user?.identities?.length === 0) {
+        triggerShake();
+        return;
+      }
 
       const user = data?.user;
       if (!user) throw new Error('no_user');
@@ -122,17 +139,7 @@ function RegisterPage() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch (err) {
-      console.error('[BEF] Account creation error:', err);
-      const msg = (err?.message ?? '').toLowerCase();
-      if (
-        msg.includes('already registered') ||
-        msg.includes('already exists') ||
-        msg.includes('user already')
-      ) {
-        setError(r.errors.emailExists);
-      } else {
-        setError(`${r.errors.generic} (${err?.message ?? 'unknown'})`);
-      }
+      setError(`${r.errors.generic} (${err?.message ?? 'unknown'})`);
     } finally {
       setLoading(false);
     }
@@ -156,6 +163,7 @@ function RegisterPage() {
     try {
       const { error: dbError } = await supabase.from('registrations').insert({
         user_id:        authUser.id,
+        email:          authUser.email,
         first_name:     firstName,
         last_name:      lastName,
         age:            ageNum,
@@ -167,7 +175,6 @@ function RegisterPage() {
       if (dbError) throw dbError;
       navigate('/qualifying');
     } catch (err) {
-      console.error('[BEF] Registration insert error:', err);
       const msg = (err?.message ?? '').toLowerCase();
       if (msg.includes('violates row-level security') || msg.includes('rls')) {
         setError('Insert blocked by Supabase RLS. Check that the INSERT policy exists and you are signed in.');
@@ -258,16 +265,33 @@ function RegisterPage() {
 
                       <div>
                         <label htmlFor="reg-email" className={LABEL}>{r.emailLabel}</label>
-                        <input
-                          id="reg-email"
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder={r.emailPlaceholder}
-                          required
-                          autoComplete="email"
-                          className={INPUT}
-                        />
+                        <div className={shaking ? 'shake' : undefined}>
+                          <input
+                            id="reg-email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => {
+                              setEmail(e.target.value);
+                              setEmailDuplicate(false);
+                              setError('');
+                            }}
+                            placeholder={r.emailPlaceholder}
+                            required
+                            autoComplete="email"
+                            className={`${INPUT} ${emailDuplicate ? 'border-rose-500 focus:border-rose-500 focus:ring-rose-500/40' : ''}`}
+                          />
+                        </div>
+                        {emailDuplicate && (
+                          <div className="mt-2 space-y-1">
+                            <p className="text-sm text-rose-400">{r.errors.emailDuplicate}</p>
+                            <Link
+                              to="/signin"
+                              className="text-sm text-accent hover:text-accent-light font-semibold transition-colors duration-150"
+                            >
+                              {r.errors.signInPrompt}
+                            </Link>
+                          </div>
+                        )}
                       </div>
 
                       <div>
@@ -319,7 +343,9 @@ function RegisterPage() {
                       </div>
                     </div>
 
-                    {error && <p className="mt-4 text-sm text-rose-400">{error}</p>}
+                    {error && !emailDuplicate && (
+                      <p className="mt-4 text-sm text-rose-400">{error}</p>
+                    )}
 
                     <button
                       type="submit"

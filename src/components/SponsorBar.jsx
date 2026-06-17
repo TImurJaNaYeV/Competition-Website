@@ -48,7 +48,7 @@ function SponsorBar() {
       `}</style>
 
       <div
-        className="sponsor-bar w-full bg-navy-800 border-b border-white/10"
+        className="sponsor-bar w-full overflow-hidden bg-navy-800 border-b border-white/10"
         style={{ height: '52px' }}
       >
         {/* overflow-hidden clips the track; mask fades the left and right edges */}

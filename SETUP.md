@@ -14,6 +14,7 @@ In the Supabase dashboard, open the **Table Editor** and create a new table call
 |---|---|---|---|
 | `id` | uuid | `gen_random_uuid()` | Primary key |
 | `user_id` | uuid | — | References `auth.users.id` |
+| `email` | text | — | Stored alongside user_id for duplicate checks |
 | `first_name` | text | — | |
 | `last_name` | text | — | |
 | `age` | int2 | — | |
@@ -28,6 +29,7 @@ In the Supabase dashboard, open the **Table Editor** and create a new table call
 > create table registrations (
 >   id             uuid primary key default gen_random_uuid(),
 >   user_id        uuid references auth.users(id),
+>   email          text not null,
 >   first_name     text not null,
 >   last_name      text not null,
 >   age            int2 not null,
@@ -45,28 +47,32 @@ In the Table Editor, click the `registrations` table → **Auth** tab → toggle
 
 ## 4. Add RLS policies
 
-Add two policies so users can only access their own row:
+Run the following SQL in the Supabase SQL Editor:
 
-**INSERT policy**
-- Policy name: `Users can insert their own registration`
-- Operation: INSERT
-- Check expression: `auth.uid() = user_id`
+```sql
+-- Allow anyone to check whether an email is already registered.
+-- Only the id column is exposed, no sensitive data.
+CREATE POLICY "Allow email existence check"
+ON registrations
+FOR SELECT
+USING (true);
 
-**SELECT policy**
-- Policy name: `Users can read their own registration`
-- Operation: SELECT
-- Using expression: `auth.uid() = user_id`
+-- Users can insert only their own registration row.
+CREATE POLICY "Users can insert their own registration"
+ON registrations
+FOR INSERT
+WITH CHECK (auth.uid() = user_id);
 
-> **Tip:** SQL equivalent:
-> ```sql
-> create policy "Users can insert their own registration"
->   on registrations for insert
->   with check (auth.uid() = user_id);
->
-> create policy "Users can read their own registration"
->   on registrations for select
->   using (auth.uid() = user_id);
-> ```
+-- Users can read only their own registration row.
+CREATE POLICY "Users can read their own registration"
+ON registrations
+FOR SELECT
+USING (auth.uid() = user_id);
+```
+
+> **Note:** Two SELECT policies coexist — Supabase merges them with OR, so a
+> logged-in user can see their own row, and an anonymous visitor can query
+> for email existence (id only). This is intentional and safe.
 
 ## 5. Copy credentials into `.env`
 

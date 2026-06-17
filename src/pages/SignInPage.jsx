@@ -58,7 +58,6 @@ function SignInPage() {
       if (authError) throw authError;
       await checkAndRedirect(data.user.id);
     } catch (err) {
-      console.error('[BEF] Sign in error:', err);
       const msg = (err?.message ?? '').toLowerCase();
       if (
         msg.includes('invalid') ||
