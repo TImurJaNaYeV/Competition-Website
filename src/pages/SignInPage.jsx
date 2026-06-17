@@ -6,11 +6,11 @@ import { useLang } from '../context/LanguageContext';
 import Footer from '../components/Footer';
 
 const INPUT =
-  'w-full bg-navy-950 border border-navy-700 text-white rounded-xl px-4 py-3 text-sm ' +
+  'w-full bg-navy-950 border border-navy-700 text-white rounded-xl px-4 py-3 text-base ' +
   'placeholder-slate-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/40 ' +
   'transition-colors duration-150';
 
-const LABEL = 'block text-[11px] font-bold uppercase tracking-[0.1em] text-slate-400';
+const LABEL = 'block text-xs font-bold uppercase tracking-[0.1em] text-slate-400';
 
 function SignInPage() {
   const { t } = useLang();
@@ -118,7 +118,7 @@ function SignInPage() {
                     <a
                       href="#"
                       onClick={(e) => e.preventDefault()}
-                      className="text-xs text-slate-500 hover:text-accent transition-colors duration-150"
+                      className="text-sm text-slate-500 hover:text-accent transition-colors duration-150"
                     >
                       {s.forgotPassword}
                     </a>
@@ -136,7 +136,7 @@ function SignInPage() {
                 </div>
               </div>
 
-              {error && <p className="mt-4 text-sm text-rose-400">{error}</p>}
+              {error && <p className="mt-4 text-base text-rose-400">{error}</p>}
 
               <button
                 type="submit"
@@ -149,7 +149,7 @@ function SignInPage() {
               </button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-slate-500">
+            <p className="mt-6 text-center text-base text-slate-500">
               {s.noAccount}{' '}
               <Link
                 to="/register"

@@ -93,7 +93,6 @@ function QualifyingPage() {
 
         {/* ── SECTION 1: WELCOME ──────────────────────────────────────── */}
         <section className="relative w-full bg-navy-950 py-20 px-6">
-          {/* Subtle ambient glow matching hero */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(0,196,140,0.07),transparent_70%)]"
@@ -124,11 +123,11 @@ function QualifyingPage() {
                     <dt className="text-xs font-bold uppercase tracking-[0.08em] text-slate-400 whitespace-nowrap">
                       {label}:
                     </dt>
-                    <dd className="text-white text-sm font-medium">{value}</dd>
+                    <dd className="text-white text-base font-medium">{value}</dd>
                   </div>
                 ))}
               </dl>
-              <p className="text-slate-300 text-sm leading-relaxed max-w-md">
+              <p className="text-slate-300 text-lg leading-relaxed max-w-md">
                 {q.round1Desc}
               </p>
             </div>

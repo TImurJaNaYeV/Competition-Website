@@ -5,7 +5,7 @@ import { useLang } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 
 function Navbar() {
-  const { lang, toggleLang, t } = useLang();
+  const { lang, t, toggleLang } = useLang();
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,19 +39,16 @@ function Navbar() {
 
           <span className="w-px h-4 bg-white/10" aria-hidden="true" />
 
-          {/* Language toggle: text-only, shows flag + code of the language to switch TO */}
           <button
             type="button"
             onClick={toggleLang}
-            aria-label={lang === 'en' ? 'Switch to Russian' : 'Switch to English'}
             className="text-sm font-medium text-slate-400 hover:text-white transition-colors duration-150"
           >
-            {lang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN'}
+            {lang.toUpperCase()}
           </button>
 
           <span className="w-px h-4 bg-white/10" aria-hidden="true" />
 
-          {/* Auth — hidden while session resolves to prevent flash */}
           {user === undefined ? null : user ? (
             <>
               <button
@@ -88,7 +85,6 @@ function Navbar() {
 
         {/* ── Mobile: primary CTA + hamburger ── */}
         <div className="flex md:hidden items-center gap-3">
-          {/* Keep the primary CTA visible beside the hamburger */}
           {user !== undefined && (
             <Link
               to={user ? '/qualifying' : '/register'}
@@ -145,7 +141,7 @@ function Navbar() {
             onClick={() => { toggleLang(); setMenuOpen(false); }}
             className="text-left text-sm font-medium text-slate-300 hover:text-white transition-colors duration-150"
           >
-            {lang === 'en' ? '🇷🇺 Switch to Russian' : '🇬🇧 Switch to English'}
+            {lang.toUpperCase()}
           </button>
         </div>
       )}

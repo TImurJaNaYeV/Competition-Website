@@ -21,11 +21,11 @@ const STRENGTH_BAR  = ['', 'bg-rose-500',  'bg-amber-400',  'bg-lime-400',  'bg-
 const STRENGTH_TEXT = ['', 'text-rose-400', 'text-amber-400', 'text-lime-400', 'text-accent'];
 
 const INPUT =
-  'w-full bg-navy-950 border border-navy-700 text-white rounded-xl px-4 py-3 text-sm ' +
+  'w-full bg-navy-950 border border-navy-700 text-white rounded-xl px-4 py-3 text-base ' +
   'placeholder-slate-600 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/40 ' +
   'transition-colors duration-150';
 
-const LABEL = 'block text-[11px] font-bold uppercase tracking-[0.1em] text-slate-400 mb-1.5';
+const LABEL = 'block text-xs font-bold uppercase tracking-[0.1em] text-slate-400 mb-1.5';
 
 // Check if this user already has a completed registration
 async function fetchRegistration(userId) {
@@ -212,7 +212,7 @@ function RegisterPage() {
                 <h2 className="text-xl font-black text-white uppercase tracking-tight mb-4">
                   {r.emailSentTitle}
                 </h2>
-                <p className="text-slate-300 text-sm leading-relaxed mb-8 max-w-xs mx-auto">
+                <p className="text-slate-300 text-base leading-relaxed mb-8 max-w-xs mx-auto">
                   {r.emailSentPre}
                   <span className="text-white font-semibold">{submittedEmail}</span>
                   {r.emailSentPost}
@@ -283,10 +283,10 @@ function RegisterPage() {
                         </div>
                         {emailDuplicate && (
                           <div className="mt-2 space-y-1">
-                            <p className="text-sm text-rose-400">{r.errors.emailDuplicate}</p>
+                            <p className="text-base text-rose-400">{r.errors.emailDuplicate}</p>
                             <Link
                               to="/signin"
-                              className="text-sm text-accent hover:text-accent-light font-semibold transition-colors duration-150"
+                              className="text-base text-accent hover:text-accent-light font-semibold transition-colors duration-150"
                             >
                               {r.errors.signInPrompt}
                             </Link>
@@ -318,7 +318,7 @@ function RegisterPage() {
                                 />
                               ))}
                             </div>
-                            <p className={`text-xs ${STRENGTH_TEXT[strength]}`}>
+                            <p className={`text-sm ${STRENGTH_TEXT[strength]}`}>
                               {strength === 1 ? r.strength.weak
                                 : strength === 2 ? r.strength.fair
                                 : strength === 3 ? r.strength.good
@@ -344,7 +344,7 @@ function RegisterPage() {
                     </div>
 
                     {error && !emailDuplicate && (
-                      <p className="mt-4 text-sm text-rose-400">{error}</p>
+                      <p className="mt-4 text-base text-rose-400">{error}</p>
                     )}
 
                     <button
@@ -357,7 +357,7 @@ function RegisterPage() {
                         : r.ctaCreate}
                     </button>
 
-                    <p className="mt-5 text-center text-sm text-slate-500">
+                    <p className="mt-5 text-center text-base text-slate-500">
                       {t.signIn.haveAccount}{' '}
                       <Link to="/signin" className="text-accent hover:text-accent-light font-semibold transition-colors duration-150">
                         {t.nav.signIn}
@@ -466,7 +466,7 @@ function RegisterPage() {
                       </div>
                     </div>
 
-                    {error && <p className="mt-4 text-sm text-rose-400">{error}</p>}
+                    {error && <p className="mt-4 text-base text-rose-400">{error}</p>}
 
                     <button
                       type="submit"
@@ -486,8 +486,8 @@ function RegisterPage() {
                 <div className="flex gap-3">
                   <Info size={18} weight="fill" className="text-accent flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm font-bold text-white mb-1.5">{r.paymentTitle}</p>
-                    <p className="text-sm text-slate-300 leading-relaxed">{r.paymentBody}</p>
+                    <p className="text-base font-bold text-white mb-1.5">{r.paymentTitle}</p>
+                    <p className="text-base text-slate-300 leading-relaxed">{r.paymentBody}</p>
                   </div>
                 </div>
               </div>

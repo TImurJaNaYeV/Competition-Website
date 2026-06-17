@@ -14,7 +14,6 @@ import CountdownTimer from '../components/CountdownTimer';
 import SponsorBar from '../components/SponsorBar';
 import Footer from '../components/Footer';
 
-// Static metadata per card slot — icons/style don't change with language
 const CARD_META = [
   { Icon: Trophy,   featured: true,  animClass: 'animate-fade-up'   },
   { Icon: BookOpen, featured: false, animClass: 'animate-fade-up-1' },
@@ -32,58 +31,61 @@ function scrollToAbout() {
 function HomePage() {
   const { lang, t } = useLang();
 
-  // Hero headline is larger in English (shorter text) than in Russian (longer text)
-  const heroHeadingSize =
-    lang === 'ru'
-      ? 'text-3xl sm:text-4xl lg:text-5xl'
-      : 'text-4xl sm:text-5xl lg:text-6xl';
-
   return (
     <main>
 
       {/* ── SPONSOR BAR ───────────────────────────────────────────── */}
-      <SponsorBar />
+      <div className="bg-navy-800 border-b border-white/10">
+        <SponsorBar />
+      </div>
 
       {/* ── HERO ──────────────────────────────────────────────────── */}
-      <section className="relative min-h-[calc(100dvh-4rem)] flex flex-col items-center justify-center overflow-hidden bg-navy-950">
-        {/* Ambient glow */}
+      <section className="relative min-h-[calc(100dvh-4rem)] flex items-start overflow-hidden bg-navy-950">
+
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-5%,rgba(0,196,140,0.09),transparent_70%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_20%_10%,rgba(0,196,140,0.09),transparent_70%)]"
         />
 
-        <div className="relative w-full max-w-5xl mx-auto px-6 py-16 text-center">
-          <h1
-            className={`animate-fade-up font-black text-white uppercase leading-none tracking-tight mb-6 ${heroHeadingSize}`}
-          >
-            {t.hero.taglinePart1}
-            <br />
-            <span className="text-accent">{t.hero.taglinePart2}</span>
-          </h1>
+        <div className="relative w-full max-w-5xl mx-auto px-6 pt-8 md:pt-[8vh] pb-20">
+          <div className="max-w-xl">
 
-          {/*
-            descriptionEnd ("2-4." / "2–4 человека.") is wrapped in whitespace-nowrap
-            to prevent the browser breaking on the hyphen and orphaning the last number.
-          */}
-          <p className="animate-fade-up-1 text-base sm:text-lg text-slate-300 max-w-lg mx-auto mb-10 leading-relaxed">
-            {t.hero.descriptionPre}
-            <span className="whitespace-nowrap">{t.hero.descriptionEnd}</span>
-          </p>
+            <p className="animate-fade-up text-[11px] font-bold uppercase tracking-[0.35em] text-accent mb-5">
+              {t.nav.brand} · 2026
+            </p>
 
-          <div className="animate-fade-up-2 flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              to="/register"
-              className="inline-flex items-center justify-center bg-accent text-navy-950 text-sm font-bold px-8 py-4 rounded-xl hover:bg-accent-light active:scale-[0.97] transition-all duration-150"
+            <h1
+              className={`animate-fade-up-1 font-black text-white uppercase leading-[0.93] tracking-tight mb-6 ${
+                lang === 'ru'
+                  ? 'text-4xl sm:text-5xl lg:text-6xl'
+                  : 'text-5xl sm:text-6xl lg:text-7xl'
+              }`}
             >
-              {t.hero.registerCta}
-            </Link>
-            <button
-              type="button"
-              onClick={scrollToAbout}
-              className="inline-flex items-center justify-center border border-white/20 text-white text-sm font-semibold px-8 py-4 rounded-xl hover:bg-white/5 hover:border-white/40 active:scale-[0.97] transition-all duration-150"
-            >
-              {t.hero.learnMore}
-            </button>
+              {t.hero.taglinePart1}
+              <br />
+              <span className="text-accent">{t.hero.taglinePart2}</span>
+            </h1>
+
+            <p className="animate-fade-up-2 text-slate-200 text-xl sm:text-2xl font-medium leading-snug tracking-tight mb-10 max-w-md">
+              {t.hero.descriptionPre}
+              <span className="whitespace-nowrap">{t.hero.descriptionEnd}</span>
+            </p>
+
+            <div className="animate-fade-up-3 flex flex-col sm:flex-row gap-3">
+              <Link
+                to="/register"
+                className="inline-flex items-center justify-center bg-accent text-navy-950 text-sm font-bold px-8 py-4 rounded-xl hover:bg-accent-light active:scale-[0.97] transition-all duration-150"
+              >
+                {t.hero.registerCta}
+              </Link>
+              <button
+                type="button"
+                onClick={scrollToAbout}
+                className="inline-flex items-center justify-center border border-white/20 text-white text-sm font-semibold px-8 py-4 rounded-xl hover:bg-white/5 hover:border-white/40 active:scale-[0.97] transition-all duration-150"
+              >
+                {t.hero.learnMore}
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -133,7 +135,7 @@ function HomePage() {
                   <h3 className="text-lg font-black text-white uppercase tracking-tight mb-3">
                     {card.title}
                   </h3>
-                  <p className="text-sm text-slate-300 leading-relaxed">
+                  <p className="text-base text-slate-300 leading-relaxed">
                     {card.description}
                   </p>
                 </div>
@@ -161,7 +163,7 @@ function HomePage() {
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
                     {item.label}
                   </span>
-                  <span className="text-white font-semibold text-sm text-center leading-snug">
+                  <span className="text-white font-semibold text-base text-center leading-snug">
                     {item.value}
                   </span>
                 </div>
@@ -207,17 +209,17 @@ function HomePage() {
           <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
             <a
               href="#"
-              className="flex items-center gap-2.5 text-slate-300 hover:text-accent transition-colors duration-150 text-sm font-medium"
+              className="flex items-center gap-2.5 text-slate-300 hover:text-accent transition-colors duration-150 text-base font-medium"
             >
-              <Envelope size={17} weight="fill" />
+              <Envelope size={18} weight="fill" />
               {t.contact.emailDisplay}
             </a>
             <span className="hidden sm:block w-px h-4 bg-navy-700" aria-hidden="true" />
             <a
               href="#"
-              className="flex items-center gap-2.5 text-slate-300 hover:text-accent transition-colors duration-150 text-sm font-medium"
+              className="flex items-center gap-2.5 text-slate-300 hover:text-accent transition-colors duration-150 text-base font-medium"
             >
-              <InstagramLogo size={17} weight="fill" />
+              <InstagramLogo size={18} weight="fill" />
               {t.contact.instagram}
             </a>
           </div>

@@ -62,6 +62,7 @@ export const translations = {
       instagram:    '@[PLACEHOLDER]',
     },
     footer: {
+      supportedBy: 'With support from',
       copyright:
         '© 2025 Case Championship in Business, Economics & Finance. All rights reserved.',
     },
@@ -233,6 +234,7 @@ export const translations = {
       instagram:    '@[PLACEHOLDER]',
     },
     footer: {
+      supportedBy: 'При поддержке',
       copyright:
         '© 2025 Кейс-чемпионат по Бизнесу, Экономике и Финансам. Все права защищены.',
     },
