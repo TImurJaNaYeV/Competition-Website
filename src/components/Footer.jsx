@@ -7,7 +7,7 @@ function Footer() {
     <footer className="bg-navy-800 border-t border-white/10 py-8">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-3 items-center">
 
-        {/* Left — empty, mirrors the button width to keep copyright truly centered */}
+        {/* Left — mirrors button width so copyright stays centered */}
         <div />
 
         {/* Center — copyright */}
@@ -15,15 +15,15 @@ function Footer() {
           {t.footer.copyright}
         </p>
 
-        {/* Right — language switcher */}
+        {/* Right — language switcher, text-only to match navbar secondary actions */}
         <div className="flex justify-end">
           <button
             type="button"
             onClick={toggleLang}
             aria-label={lang === 'en' ? 'Switch to Russian' : 'Switch to English'}
-            className="text-base border border-navy-700 hover:border-accent rounded-lg px-3 py-1.5 transition-all duration-150 active:scale-[0.97]"
+            className="text-sm font-medium text-slate-400 hover:text-white transition-colors duration-150"
           >
-            {lang === 'en' ? '🇷🇺' : '🇬🇧'}
+            {lang === 'en' ? '🇷🇺 RU' : '🇬🇧 EN'}
           </button>
         </div>
 
