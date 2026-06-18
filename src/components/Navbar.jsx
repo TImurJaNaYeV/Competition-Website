@@ -1,17 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { List, X } from '@phosphor-icons/react';
 import { useLang } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
+import { checkIsAdmin } from '../utils/checkAdmin';
 
 function Navbar() {
   const { lang, t, toggleLang } = useLang();
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAdmin,  setIsAdmin]  = useState(false);
+
+  useEffect(() => {
+    if (!user) { setIsAdmin(false); return; }
+    console.log('[Navbar] user signed in, calling checkIsAdmin with id:', user.id);
+    checkIsAdmin(user.id).then((result) => {
+      console.log('[Navbar] checkIsAdmin resolved to:', result);
+      setIsAdmin(result);
+    });
+  }, [user]);
 
   async function handleSignOut() {
     await signOut();
+    setIsAdmin(false);
     navigate('/');
     setMenuOpen(false);
   }
@@ -51,6 +63,14 @@ function Navbar() {
 
           {user === undefined ? null : user ? (
             <>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="text-sm font-medium border border-white/20 text-slate-300 hover:text-white hover:border-white/40 px-3 py-1.5 rounded-lg transition-all duration-150 leading-none"
+                >
+                  {t.nav.adminPanel}
+                </Link>
+              )}
               <button
                 type="button"
                 onClick={handleSignOut}
@@ -127,13 +147,24 @@ function Navbar() {
               {t.nav.signIn}
             </Link>
           ) : (
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="text-left text-sm font-medium text-slate-300 hover:text-white transition-colors duration-150"
-            >
-              {t.nav.signOut}
-            </button>
+            <>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-150"
+                >
+                  {t.nav.adminPanel}
+                </Link>
+              )}
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="text-left text-sm font-medium text-slate-300 hover:text-white transition-colors duration-150"
+              >
+                {t.nav.signOut}
+              </button>
+            </>
           )}
 
           <button

@@ -4,6 +4,7 @@ import { PencilSimple, VideoCamera, Trophy } from '@phosphor-icons/react';
 import { supabase } from '../supabaseClient';
 import { useAuth } from '../context/AuthContext';
 import { useLang } from '../context/LanguageContext';
+import { useCompetitionSettings, formatCompetitionDate } from '../hooks/useCompetitionSettings';
 import Footer from '../components/Footer';
 
 function Modal({ message, closeLabel, onClose }) {
@@ -33,16 +34,17 @@ function Modal({ message, closeLabel, onClose }) {
 
 function QualifyingPage() {
   const { user } = useAuth();
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const navigate = useNavigate();
   const q = t.qualifying;
+  const settings = useCompetitionSettings();
 
   const [firstName, setFirstName] = useState('');
   const [pageReady, setPageReady] = useState(false);
   const [modal, setModal] = useState(null); // null | 'exam' | 'zoom'
 
   useEffect(() => {
-    if (user === undefined) return; // session still loading
+    if (user === undefined) return;
 
     if (user === null) {
       navigate('/signin', { replace: true });
@@ -72,12 +74,20 @@ function QualifyingPage() {
     );
   }
 
+  const round1DateDisplay = formatCompetitionDate(settings.round1_date, lang);
+  const finalDateDisplay  = formatCompetitionDate(settings.final_date,  lang);
+
   const detailRows = [
-    { label: q.dateLabel,     value: q.dateValue     },
-    { label: q.durationLabel, value: q.durationValue },
-    { label: q.subjectsLabel, value: q.subjectsValue },
-    { label: q.formatLabel,   value: q.formatValue   },
+    { label: q.dateLabel,     value: round1DateDisplay },
+    { label: q.durationLabel, value: q.durationValue   },
+    { label: q.subjectsLabel, value: q.subjectsValue   },
+    { label: q.formatLabel,   value: q.formatValue     },
   ];
+
+  // Compose the finals date line: live date + location from translations
+  const finalDateLine = settings.final_date
+    ? `${finalDateDisplay} · ${q.finalsLocation}`
+    : q.finalsDate;
 
   return (
     <>
@@ -167,7 +177,7 @@ function QualifyingPage() {
               {q.finalsHeading}
             </h2>
             <p className="text-navy-950 font-semibold text-lg mb-3 opacity-80">
-              {q.finalsDate}
+              {finalDateLine}
             </p>
             <p className="text-navy-950 text-base opacity-60">
               {q.finalsDetails}

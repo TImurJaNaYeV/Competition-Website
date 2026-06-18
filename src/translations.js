@@ -8,13 +8,11 @@ export const translations = {
       myAccount:   'My Account',
       myDashboard: 'My Dashboard',
       signOut:     'Sign Out',
+      adminPanel:  'Admin Panel',
     },
     hero: {
-      // taglinePart1 is white, taglinePart2 is accent — keep as two strings
       taglinePart1: 'Where Ambition',
       taglinePart2: 'Meets Real Business',
-      // descriptionPre + descriptionEnd are rendered separately so descriptionEnd
-      // can be wrapped in whitespace-nowrap, preventing a break inside "2-4."
       descriptionPre:
         'An international case championship for high school students in grades 9-12 who want to explore Business Management, Economics, and Finance. Compete individually or in teams of ',
       descriptionEnd: '2-4.',
@@ -22,9 +20,9 @@ export const translations = {
       learnMore:   'Learn More',
     },
     countdown: {
-      label: 'Registration Opens In',
+      label:      'Registration Opens In',
       subheading: 'First tour in',
-      date:  'July 25, 2026',
+      date:       'July 25, 2026',
     },
     about: {
       eyebrow: 'About',
@@ -67,20 +65,17 @@ export const translations = {
         '© 2025 Case Championship in Business, Economics & Finance. All rights reserved.',
     },
     register: {
-      // Step labels
       step1Label:      'Step 1 of 2',
       step2Label:      'Step 2 of 2',
       createAccount:   'Create Account',
       personalDetails: 'Personal Details',
 
-      // Email confirmation screen
       emailSentTitle: 'Check Your Email',
       emailSentPre:   'We sent a confirmation link to ',
       emailSentPost:
         '. Please confirm your email before continuing. Once confirmed, come back and sign in.',
       goToSignIn: 'Go to Sign In',
 
-      // Step 1 — account fields
       emailLabel:                 'Email',
       emailPlaceholder:           'your@email.com',
       passwordLabel:              'Password',
@@ -88,7 +83,6 @@ export const translations = {
       confirmPasswordLabel:       'Confirm Password',
       confirmPasswordPlaceholder: 'Repeat your password',
 
-      // Password strength labels
       strength: {
         weak:   'Weak',
         fair:   'Fair',
@@ -96,7 +90,6 @@ export const translations = {
         strong: 'Strong',
       },
 
-      // Step 2 — personal detail fields
       firstNameLabel:        'First Name',
       firstNamePlaceholder:  'Your first name',
       lastNameLabel:         'Last Name',
@@ -109,18 +102,15 @@ export const translations = {
       schoolNameLabel:       'School Name',
       schoolNamePlaceholder: 'Your school name',
 
-      // Buttons
       ctaCreate:   'Create Account',
       ctaComplete: 'Complete Registration',
 
-      // Payment notice card
       paymentTitle: 'Registration Fee',
       paymentBody:
         'A registration fee of [PLACEHOLDER AMOUNT] is required before August 15, 2025. ' +
         'Payment instructions will be sent to your email after registration. ' +
         'You can complete registration now and pay later.',
 
-      // Inline error messages
       errors: {
         passwordTooShort: 'Password must be at least 8 characters.',
         passwordMismatch: 'Passwords do not match.',
@@ -133,17 +123,17 @@ export const translations = {
       },
     },
     signIn: {
-      eyebrow:        'Sign In',
-      title:          'Welcome Back',
-      emailLabel:     'Email',
-      emailPlaceholder: 'your@email.com',
-      passwordLabel:  'Password',
+      eyebrow:             'Sign In',
+      title:               'Welcome Back',
+      emailLabel:          'Email',
+      emailPlaceholder:    'your@email.com',
+      passwordLabel:       'Password',
       passwordPlaceholder: 'Your password',
-      forgotPassword: 'Forgot password?',
-      cta:            'Sign In',
-      noAccount:      "Don't have an account?",
-      haveAccount:    'Already have an account?',
-      registerLink:   'Register',
+      forgotPassword:      'Forgot password?',
+      cta:                 'Sign In',
+      noAccount:           "Don't have an account?",
+      haveAccount:         'Already have an account?',
+      registerLink:        'Register',
       errors: {
         invalidCredentials: 'Incorrect email or password.',
         emailNotConfirmed:  'Please confirm your email address before signing in.',
@@ -170,7 +160,40 @@ export const translations = {
       closeModal:     'Close',
       finalsHeading:  'Finals',
       finalsDate:     'August 15, 2025 · Almaty / Astana, Kazakhstan',
+      finalsLocation: 'Almaty / Astana, Kazakhstan',
       finalsDetails:  'More details coming soon.',
+    },
+    admin: {
+      eyebrow:              'Admin Panel',
+      heading:              'Dashboard',
+      settingsHeading:      'Competition Dates',
+      round1Label:          'Round 1 — Date & Time',
+      round2Label:          'Round 2 — Date & Time',
+      finalLabel:           'Final — Date & Time',
+      saveChanges:          'Save Changes',
+      saving:               'Saving…',
+      saved:                'Changes saved',
+      registrationsHeading: 'Registrations',
+      searchPlaceholder:    'Search by name or email…',
+      sortName:             'Name',
+      sortDate:             'Date',
+      colName:              'Name',
+      colEmail:             'Email',
+      colAge:               'Age',
+      colGrade:             'Grade',
+      colSchool:            'School',
+      colPayment:           'Payment',
+      colRegistered:        'Registered',
+      statusPaid:           'Paid',
+      statusPending:        'Pending',
+      markPaid:             'Mark Paid',
+      markPending:          'Mark Pending',
+      noResults:            'No registrations found.',
+      total:                'total',
+      incompleteHeading:    'Incomplete Registrations',
+      incompleteSubtext:    'These users created an account but never completed their profile.',
+      noIncomplete:         'No incomplete registrations.',
+      colSignedUp:          'Signed Up On',
     },
   },
 
@@ -183,6 +206,7 @@ export const translations = {
       myAccount:   'Мой аккаунт',
       myDashboard: 'Мой кабинет',
       signOut:     'Выйти',
+      adminPanel:  'Панель администратора',
     },
     hero: {
       taglinePart1: 'Где амбиции',
@@ -194,9 +218,9 @@ export const translations = {
       learnMore:   'Узнать больше',
     },
     countdown: {
-      label: 'Регистрация открывается через',
+      label:      'Регистрация открывается через',
       subheading: 'Первый тур через',
-      date:  '25 июля 2026',
+      date:       '25 июля 2026',
     },
     about: {
       eyebrow: 'О чемпионате',
@@ -239,20 +263,17 @@ export const translations = {
         '© 2025 Кейс-чемпионат по Бизнесу, Экономике и Финансам. Все права защищены.',
     },
     register: {
-      // Step labels
       step1Label:      'Шаг 1 из 2',
       step2Label:      'Шаг 2 из 2',
       createAccount:   'Создать аккаунт',
       personalDetails: 'Личные данные',
 
-      // Email confirmation screen
       emailSentTitle: 'Проверьте почту',
       emailSentPre:   'Мы отправили ссылку для подтверждения на ',
       emailSentPost:
         '. Пожалуйста, подтвердите email перед продолжением. После подтверждения вернитесь и войдите в систему.',
       goToSignIn: 'Перейти к входу',
 
-      // Step 1 — account fields
       emailLabel:                 'Электронная почта',
       emailPlaceholder:           'ваша@почта.com',
       passwordLabel:              'Пароль',
@@ -260,7 +281,6 @@ export const translations = {
       confirmPasswordLabel:       'Подтвердите пароль',
       confirmPasswordPlaceholder: 'Повторите пароль',
 
-      // Password strength labels
       strength: {
         weak:   'Слабый',
         fair:   'Средний',
@@ -268,7 +288,6 @@ export const translations = {
         strong: 'Надёжный',
       },
 
-      // Step 2 — personal detail fields
       firstNameLabel:        'Имя',
       firstNamePlaceholder:  'Ваше имя',
       lastNameLabel:         'Фамилия',
@@ -281,18 +300,15 @@ export const translations = {
       schoolNameLabel:       'Название школы',
       schoolNamePlaceholder: 'Ваша школа',
 
-      // Buttons
       ctaCreate:   'Создать аккаунт',
       ctaComplete: 'Завершить регистрацию',
 
-      // Payment notice card
       paymentTitle: 'Регистрационный взнос',
       paymentBody:
         'Регистрационный взнос в размере [PLACEHOLDER] необходимо оплатить до 15 августа 2025 года. ' +
         'Инструкции по оплате будут отправлены на вашу электронную почту после регистрации. ' +
         'Вы можете зарегистрироваться сейчас и оплатить позже.',
 
-      // Inline error messages
       errors: {
         passwordTooShort: 'Пароль должен содержать не менее 8 символов.',
         passwordMismatch: 'Пароли не совпадают.',
@@ -305,17 +321,17 @@ export const translations = {
       },
     },
     signIn: {
-      eyebrow:          'Вход',
-      title:            'С возвращением',
-      emailLabel:       'Электронная почта',
-      emailPlaceholder: 'ваша@почта.com',
-      passwordLabel:    'Пароль',
+      eyebrow:             'Вход',
+      title:               'С возвращением',
+      emailLabel:          'Электронная почта',
+      emailPlaceholder:    'ваша@почта.com',
+      passwordLabel:       'Пароль',
       passwordPlaceholder: 'Ваш пароль',
-      forgotPassword:   'Забыли пароль?',
-      cta:              'Войти',
-      noAccount:        'Нет аккаунта?',
-      haveAccount:      'Уже есть аккаунт?',
-      registerLink:     'Зарегистрироваться',
+      forgotPassword:      'Забыли пароль?',
+      cta:                 'Войти',
+      noAccount:           'Нет аккаунта?',
+      haveAccount:         'Уже есть аккаунт?',
+      registerLink:        'Зарегистрироваться',
       errors: {
         invalidCredentials: 'Неверный email или пароль.',
         emailNotConfirmed:  'Пожалуйста, подтвердите ваш email перед входом.',
@@ -342,7 +358,40 @@ export const translations = {
       closeModal:     'Закрыть',
       finalsHeading:  'Финал',
       finalsDate:     '15 августа 2025 · Алматы / Астана, Казахстан',
+      finalsLocation: 'Алматы / Астана, Казахстан',
       finalsDetails:  'Подробности скоро появятся.',
+    },
+    admin: {
+      eyebrow:              'Панель администратора',
+      heading:              'Дэшборд',
+      settingsHeading:      'Даты соревнований',
+      round1Label:          'Тур 1 — дата и время',
+      round2Label:          'Тур 2 — дата и время',
+      finalLabel:           'Финал — дата и время',
+      saveChanges:          'Сохранить изменения',
+      saving:               'Сохранение…',
+      saved:                'Изменения сохранены',
+      registrationsHeading: 'Регистрации',
+      searchPlaceholder:    'Поиск по имени или email…',
+      sortName:             'Имя',
+      sortDate:             'Дата',
+      colName:              'Имя',
+      colEmail:             'Email',
+      colAge:               'Возраст',
+      colGrade:             'Класс',
+      colSchool:            'Школа',
+      colPayment:           'Оплата',
+      colRegistered:        'Дата регистрации',
+      statusPaid:           'Оплачено',
+      statusPending:        'Ожидание',
+      markPaid:             'Отметить оплаченным',
+      markPending:          'Отметить неоплаченным',
+      noResults:            'Регистрации не найдены.',
+      total:                'всего',
+      incompleteHeading:    'Незавершённые регистрации',
+      incompleteSubtext:    'Эти пользователи создали аккаунт, но не завершили заполнение профиля.',
+      noIncomplete:         'Незавершённых регистраций нет.',
+      colSignedUp:          'Дата регистрации',
     },
   },
 };

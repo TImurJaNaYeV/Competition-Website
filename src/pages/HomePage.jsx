@@ -10,6 +10,7 @@ import {
   InstagramLogo,
 } from '@phosphor-icons/react';
 import { useLang } from '../context/LanguageContext';
+import { useCompetitionSettings, formatCompetitionDate } from '../hooks/useCompetitionSettings';
 import CountdownTimer from '../components/CountdownTimer';
 import SponsorBar from '../components/SponsorBar';
 import Footer from '../components/Footer';
@@ -30,6 +31,7 @@ function scrollToAbout() {
 
 function HomePage() {
   const { lang, t } = useLang();
+  const settings = useCompetitionSettings();
 
   return (
     <main>
@@ -96,9 +98,9 @@ function HomePage() {
           <p className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight mb-8">
             {t.countdown.subheading}
           </p>
-          <CountdownTimer />
+          <CountdownTimer targetDate={settings.round1_date} />
           <p className="mt-5 text-[11px] uppercase tracking-widest text-slate-600">
-            {t.countdown.date}
+            {formatCompetitionDate(settings.round1_date, lang)}
           </p>
         </div>
       </section>

@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 
-// [PLACEHOLDER DATE] — update TARGET to the real competition date
-const TARGET = new Date('2026-07-25T00:00:00');
-
-function getTimeLeft() {
-  const diff = TARGET.getTime() - Date.now();
+function getTimeLeft(target) {
+  if (!target) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  const diff = target.getTime() - Date.now();
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   return {
     days:    Math.floor(diff / 86_400_000),
@@ -31,19 +29,30 @@ function TimeBox({ value, label }) {
   );
 }
 
-function CountdownTimer() {
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft);
+// targetDate — ISO string or Date; falls back to zeros while null/undefined (settings loading)
+function CountdownTimer({ targetDate }) {
+  const target    = targetDate ? new Date(targetDate) : null;
+  const targetRef = useRef(target);
+
+  const [timeLeft,  setTimeLeft]  = useState(() => getTimeLeft(target));
   const [displayed, setDisplayed] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [animated, setAnimated] = useState(false);
+  const [animated,  setAnimated]  = useState(false);
   const containerRef = useRef(null);
 
-  // Live tick
+  // Keep ref in sync and refresh timeLeft immediately when target changes
   useEffect(() => {
-    const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
+    targetRef.current = target;
+    setTimeLeft(getTimeLeft(target));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [targetDate]);
+
+  // Live tick — uses ref so it always reads the latest target without restarting
+  useEffect(() => {
+    const id = setInterval(() => setTimeLeft(getTimeLeft(targetRef.current)), 1000);
     return () => clearInterval(id);
   }, []);
 
-  // Roll-up animation on scroll into view
+  // Roll-up animation on first scroll into view
   useEffect(() => {
     if (animated) return;
     const el = containerRef.current;
@@ -54,18 +63,18 @@ function CountdownTimer() {
         if (!entries[0].isIntersecting) return;
         observer.disconnect();
 
-        const target = getTimeLeft();
+        const tgt      = getTimeLeft(targetRef.current);
         const DURATION = 1400;
         const startTime = performance.now();
 
         function frame(now) {
-          const t = Math.min((now - startTime) / DURATION, 1);
+          const t    = Math.min((now - startTime) / DURATION, 1);
           const ease = easeOutCubic(t);
           setDisplayed({
-            days:    Math.round(target.days    * ease),
-            hours:   Math.round(target.hours   * ease),
-            minutes: Math.round(target.minutes * ease),
-            seconds: Math.round(target.seconds * ease),
+            days:    Math.round(tgt.days    * ease),
+            hours:   Math.round(tgt.hours   * ease),
+            minutes: Math.round(tgt.minutes * ease),
+            seconds: Math.round(tgt.seconds * ease),
           });
           if (t < 1) {
             requestAnimationFrame(frame);
@@ -82,7 +91,6 @@ function CountdownTimer() {
     return () => observer.disconnect();
   }, [animated]);
 
-  // After animation finishes, hand off to the live countdown
   const values = animated ? timeLeft : displayed;
 
   return (
